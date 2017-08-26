@@ -14,6 +14,18 @@ export const networkInterface = {
       );
     });
   },
+  mutation({ mutation, variables, operationName}) {
+    return delay(500).then(() => {
+      return graphql(
+        schema,
+        print(mutation),
+        null,
+        null,
+        variables,
+        operationName
+      )
+    })
+  }
 };
 
 function delay (ms) {

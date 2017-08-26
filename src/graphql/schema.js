@@ -3,8 +3,26 @@ import {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
+  GraphQLInt,
   GraphQLList,
 } from 'graphql';
+
+const STORE_SIZE = 100000 //Change me!
+
+const peopleData = []
+for(var i = 0; i< STORE_SIZE; i++) {
+  peopleData.push(
+    { id: i, 
+      a: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 
+      b: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+      g: 'gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg', 
+      h: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', 
+      i: 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', 
+      j: 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 
+      k: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', 
+      l: 'llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll'}
+  )
+}
 
 const PersonType = new GraphQLObjectType({
   name: 'Person',
@@ -14,11 +32,6 @@ const PersonType = new GraphQLObjectType({
   },
 });
 
-const peopleData = [
-  { id: 1, name: 'John Smith' },
-  { id: 2, name: 'Sara Smith' },
-  { id: 3, name: 'Budd Deey' },
-];
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -30,4 +43,15 @@ const QueryType = new GraphQLObjectType({
   },
 });
 
-export const schema = new GraphQLSchema({ query: QueryType });
+
+const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    modifyPerson: {
+      type: GraphQLInt,
+      resolve: () => 1
+    }
+  }
+});
+
+export const schema = new GraphQLSchema({ query: QueryType, mutation: MutationType });

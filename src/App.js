@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
 
+
+const modifyPersonMutation = gql`
+  mutation modifyPerson {
+    modifyPerson
+}`;
+
+
 class App extends Component {
+  runMutation() {
+    const start = new Date().getTime()
+    console.log("start", start)
+    const mutation = this.props.client.mutate({mutation: modifyPersonMutation, variables: {}})
+    mutation.then(() => {const now = new Date().getTime(); console.log("done", now); console.log("total time", now - start, "ms")})
+  }
+
   render() {
-    const { data: { loading, people } } = this.props;
+    const { data: { loading } } = this.props;
     return (
       <main>
         <header>
@@ -22,15 +36,9 @@ class App extends Component {
         </header>
         {loading ? (
           <p>Loading…</p>
-        ) : (
-          <ul>
-            {people.map(person => (
-              <li key={person.id}>
-                {person.name}
-              </li>
-            ))}
-          </ul>
-        )}
+        ) :
+        <button onClick={this.runMutation.bind(this)}>Run mutation</button>
+        }
       </main>
     );
   }

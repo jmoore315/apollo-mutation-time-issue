@@ -9,6 +9,6 @@ import App from './App';
 const client = new ApolloClient({ networkInterface });
 
 ReactDOM.render(
-  <ApolloProvider client={client}><App /></ApolloProvider>,
+  <ApolloProvider client={client}><App client={client}/></ApolloProvider>,
   document.getElementById('root'),
 );
